@@ -1,3 +1,4 @@
+# app/models.py
 from app import db
 
 class House(db.Model):
@@ -19,3 +20,4 @@ class House(db.Model):
             "zip_code": self.zip_code,
             "estimated_price": self.estimated_price
         }
+

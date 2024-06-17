@@ -1,6 +1,6 @@
+# app/routes.py
 from flask import Blueprint, request, jsonify
 from app.models import db, House
-from app.services.ml_model import predict_price
 
 bp = Blueprint('main', __name__)
 
@@ -24,26 +24,27 @@ def add_house():
     db.session.commit()
     return jsonify(new_house.to_dict()), 201
 
-@bp.route('/estimate', methods=['POST'])
-def estimate_price():
-    data = request.get_json()
-    square_footage = data.get('square_footage')
-    bedrooms = data.get('bedrooms')
-    bathrooms = data.get('bathrooms')
-    year_built = data.get('year_built')
-    zip_code = data.get('zip_code')
+# Temporariamente removido para migrações
+# @bp.route('/estimate', methods=['POST'])
+# def estimate_price():
+#     data = request.get_json()
+#     square_footage = data.get('square_footage')
+#     bedrooms = data.get('bedrooms')
+#     bathrooms = data.get('bathrooms')
+#     year_built = data.get('year_built')
+#     zip_code = data.get('zip_code')
     
-    estimated_price = predict_price([square_footage, bedrooms, bathrooms, year_built, zip_code])
+#     estimated_price = predict_price([square_footage, bedrooms, bathrooms, year_built, zip_code])
     
-    new_house = House(
-        square_footage=square_footage,
-        bedrooms=bedrooms,
-        bathrooms=bathrooms,
-        year_built=year_built,
-        zip_code=zip_code,
-        estimated_price=estimated_price
-    )
-    db.session.add(new_house)
-    db.session.commit()
+#     new_house = House(
+#         square_footage=square_footage,
+#         bedrooms=bedrooms,
+#         bathrooms=bathrooms,
+#         year_built=year_built,
+#         zip_code=zip_code,
+#         estimated_price=estimated_price
+#     )
+#     db.session.add(new_house)
+#     db.session.commit()
     
-    return jsonify({"estimated_price": estimated_price})
+#     return jsonify({"estimated_price": estimated_price})

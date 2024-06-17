@@ -1,7 +1,7 @@
+# app/__init__.py
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
-from app.routes import bp
 from config import Config
 
 db = SQLAlchemy()
@@ -14,7 +14,7 @@ def create_app():
     db.init_app(app)
     migrate.init_app(app, db)
 
+    from app.routes import bp
     app.register_blueprint(bp)
 
     return app
-
